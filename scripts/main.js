@@ -80,7 +80,6 @@ tm.main(function() {
         height: SCREEN_HEIGHT,  // 高さ
         assets: ASSETS,         // アセット
         nextScene: TitleScene,  // ローディング完了後のシーン
-        nextScene: GameScene,   
     });
     app.replaceScene( loading );    // シーン切り替え
 
@@ -221,7 +220,7 @@ tm.define("Piece", {
 
         this.label = tm.app.Label(number).addChildTo(this);
         this.label
-            .setFontSize(56)
+            .setFontSize(40)
             .setFontFamily(FONT_FAMILY_FLAT)
             .setAlign("center")
             .setBaseline("middle");
