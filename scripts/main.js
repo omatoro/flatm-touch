@@ -23,10 +23,10 @@ var FONT_FAMILY_FLAT= "'Quicksand' 'Helvetica-Light' 'Meiryo' sans-serif";  // �
 
 // アセット
 var ASSETS = {
-    "bgm": "./sounds/bgm.mp3",
-    "pinponSE": "./sounds/pinpon.mp3",
-    "booSE": "./sounds/boo.mp3",
-    "clearSE": "./sounds/clear.mp3",
+    "bgm":      "http://jsrun.it/static/assets/sound/01/sound.mp3",
+    "pinponSE": "http://jsrun.it/assets/y/T/T/B/yTTBV.mp3",
+    "booSE":    "http://jsrun.it/assets/j/x/D/Y/jxDYu.mp3",
+    "clearSE":  "http://jsrun.it/assets/7/2/S/s/72Ss5.mp3",
 };
 
 /*
