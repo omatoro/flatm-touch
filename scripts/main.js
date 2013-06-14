@@ -62,6 +62,72 @@ var ASSETS = {
 
 })();
 
+(function() {
+    
+    var DEFAULT_PARAM = {
+        width:  465,
+        height: 465,
+    };
+    
+    tm.app.LoadingScene = tm.createClass({
+        superClass: tm.app.Scene,
+        
+        init: function(param) {
+            this.superInit();
+            
+            param = {}.$extend(DEFAULT_PARAM, param);
+            
+            var label = tm.app.Label("Loading");
+            label.x = param.width/2;
+            label.y = param.height/2;
+            label.width = param.width;
+            label.align     = "center";
+            label.baseline  = "middle";
+            label.fontSize = 32;
+            label.counter = 0;
+            label.update = function(app) {
+                if (app.frame % 30 == 0) {
+                    this.text += ".";
+                    this.counter += 1;
+                    if (this.counter > 3) {
+                        this.counter = 0;
+                        this.text = "Loading";
+                    }
+                }
+            };
+            this.addChild(label);
+
+            // ひよこさん
+            var piyo = tm.app.Shape(84, 84);
+            piyo.setPosition(param.width, param.height - 80);
+            piyo.canvas.setColorStyle("white", "yellow").fillCircle(42, 42, 32);
+            piyo.canvas.setColorStyle("white", "black").fillCircle(27, 27, 2);
+            piyo.canvas.setColorStyle("white", "brown").fillRect(40, 70, 4, 15).fillTriangle(0, 40, 11, 35, 11, 45);
+            piyo.update = function(app) {
+                piyo.x -= 4;
+                if (piyo.x < -80) piyo.x = param.width;
+                piyo.rotation -= 7;
+            };
+
+            this.addChild(piyo);
+
+            this.alpha = 0.0;
+            this.tweener.clear().fadeIn(100).call(function() {
+                if (param.assets) {
+                    tm.asset.AssetManager.onload = function() {
+                        this.tweener.clear().fadeOut(200).call(function() {
+                            this.app.replaceScene(param.nextScene());
+                        }.bind(this));
+                    }.bind(this);
+                    tm.asset.AssetManager.load(param.assets);
+                }
+            }.bind(this));
+        },
+    });
+    
+    
+})();
+
 
 
 /*
@@ -117,7 +183,7 @@ tm.define("GameScene", {
                 // 数値
                 var number = nums[ i*PIECE_NUM_X+j ];
                 // ピースを生成してピースグループに追加
-                var piece = Piece(number).addChildTo(this.pieceGroup);
+                var piece = Piece(number, ((PIECE_NUM_X*i)+j) * 1.2).addChildTo(this.pieceGroup);
                 // 座標を設定
                 piece.x = j * (PIECE_WIDTH  + BETWEEN) + PIECE_OFFSET_X;
                 piece.y = i * (PIECE_HEIGHT + BETWEEN) + PIECE_OFFSET_Y;
@@ -163,25 +229,25 @@ tm.define("GameScene", {
             width: titleButtonWidth,
             height: 100,
             text: "TITLE",
-            bgColor: "#888",
+            bgColor: "hsl({0}, 85%, 65%)".format(220),
             fontFamily: FONT_FAMILY_FLAT,
             fontSize: 48,
         }).addChildTo(this);
-        titleBtn.position.set(titleButtonWidth/2, 903);
+        titleBtn.position.set(titleButtonWidth/2, 904);
         titleBtn.onpointingend = function() {
             self.app.replaceScene(TitleScene());
         };
         // リスタートボタン
         var restartButtonWidth  = SCREEN_WIDTH/2;
         var restartBtn = tm.app.FlatButton({
-            width: restartButtonWidth -1,
+            width: restartButtonWidth -2,
             height: 100,
             text: "RESTART",
-            bgColor: "#888",
+            bgColor: "hsl({0}, 80%, 70%)".format(220),
             fontFamily: FONT_FAMILY_FLAT,
             fontSize: 48,
         }).addChildTo(this);
-        restartBtn.position.set(titleButtonWidth + restartButtonWidth/2 + 1, 903);
+        restartBtn.position.set(titleButtonWidth + restartButtonWidth/2 + 2, 904);
         restartBtn.onpointingend = function() {
             self.app.replaceScene(GameScene());
         };
@@ -207,7 +273,7 @@ tm.define("GameScene", {
 tm.define("Piece", {
     superClass: "tm.app.Shape",
 
-    init: function(number) {
+    init: function(number, plusAngle) {
         this.superInit(PIECE_WIDTH, PIECE_HEIGHT);
         // 数値をセット
         this.number = number;
@@ -215,8 +281,9 @@ tm.define("Piece", {
         this.setInteractive(true);
         this.setBoundingType("rect");
 
-        var angle = tm.util.Random.randint(0, 360);
-        this.canvas.clearColor("hsl({0}, 80%, 70%)".format(angle));
+        plusAngle = plusAngle || 0;
+        var angle = 0 + plusAngle;
+        this.canvas.clearColor("hsl({0}, 90%, 65%)".format(angle));
 
         this.label = tm.app.Label(number).addChildTo(this);
         this.label
