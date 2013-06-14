@@ -29,6 +29,41 @@ var ASSETS = {
     "clearSE":  "./sounds/72Ss5.mp3",
 };
 
+
+/**
+ * OverRide
+ */
+(function() {
+
+    tm.app.FlatButton = tm.createClass({
+        superClass: tm.app.Shape,
+
+        init: function(param) {
+            param.$safe({
+                width: 300,
+                height: 100,
+                bgColor: "rgb(180, 180, 180)",
+                text: "ABC",
+                fontSize: 50,
+                fontFamily: "Quicksand 'ＭＳ Ｐゴシック' 'MS PGothic' sans-serif",
+            });
+
+            this.superInit(param.width, param.height);
+
+            this.canvas.clearColor(param.bgColor);
+
+            this.setInteractive(true);
+            this.setBoundingType("rect");
+
+            this.label = tm.app.Label(param.text).addChildTo(this);
+            this.label.setFontSize(param.fontSize).setFontFamily(param.fontFamily).setAlign("center").setBaseline("middle");
+        },
+    });
+
+})();
+
+
+
 /*
  * main
  */
@@ -116,9 +151,9 @@ tm.define("GameScene", {
         // タイマーラベル
         this.timerLabel = tm.app.Label("").addChildTo(this);
         this.timerLabel
-            .setPosition(650, 160)
+            .setPosition(100, 160)
             .setFillStyle("#444")
-            .setAlign("right")
+            .setAlign("left")
             .setBaseline("bottom")
             .setFontFamily(FONT_FAMILY_FLAT)
             .setFontSize(128);
@@ -130,6 +165,8 @@ tm.define("GameScene", {
             height: 100,
             text: "TITLE",
             bgColor: "#888",
+            fontFamily: FONT_FAMILY_FLAT,
+            fontSize: 40,
         }).addChildTo(this);
         titleBtn.position.set(titleButtonWidth/2, 903);
         titleBtn.onpointingend = function() {
@@ -142,6 +179,8 @@ tm.define("GameScene", {
             height: 100,
             text: "RESTART",
             bgColor: "#888",
+            fontFamily: FONT_FAMILY_FLAT,
+            fontSize: 40,
         }).addChildTo(this);
         restartBtn.position.set(titleButtonWidth + restartButtonWidth/2 + 1, 903);
         restartBtn.onpointingend = function() {
