@@ -166,7 +166,7 @@ tm.define("GameScene", {
             text: "TITLE",
             bgColor: "#888",
             fontFamily: FONT_FAMILY_FLAT,
-            fontSize: 40,
+            fontSize: 56,
         }).addChildTo(this);
         titleBtn.position.set(titleButtonWidth/2, 903);
         titleBtn.onpointingend = function() {
@@ -180,7 +180,7 @@ tm.define("GameScene", {
             text: "RESTART",
             bgColor: "#888",
             fontFamily: FONT_FAMILY_FLAT,
-            fontSize: 40,
+            fontSize: 56,
         }).addChildTo(this);
         restartBtn.position.set(titleButtonWidth + restartButtonWidth/2 + 1, 903);
         restartBtn.onpointingend = function() {
@@ -221,7 +221,7 @@ tm.define("Piece", {
 
         this.label = tm.app.Label(number).addChildTo(this);
         this.label
-            .setFontSize(70)
+            .setFontSize(56)
             .setFontFamily(FONT_FAMILY_FLAT)
             .setAlign("center")
             .setBaseline("middle");
