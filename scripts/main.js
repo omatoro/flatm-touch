@@ -44,7 +44,7 @@ var ASSETS = {
                 height: 100,
                 bgColor: "rgb(180, 180, 180)",
                 text: "ABC",
-                fontSize: 50,
+                fontSize: 40,
                 fontFamily: "Quicksand 'ＭＳ Ｐゴシック' 'MS PGothic' sans-serif",
             });
 
