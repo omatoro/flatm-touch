@@ -15,9 +15,9 @@ var PIECE_NUM_Y     = 5;                // ピースの行数
 var PIECE_NUM       = PIECE_NUM_X*PIECE_NUM_Y;  // ピース数
 var PIECE_OFFSET_X  = 68;
 var PIECE_OFFSET_Y  = 240;
-var PIECE_WIDTH     = 135;
-var PIECE_HEIGHT    = 135;
-var BETWEEN         = 1;
+var PIECE_WIDTH     = 134;
+var PIECE_HEIGHT    = 134;
+var BETWEEN         = 2;
 
 var FONT_FAMILY_FLAT= "'Quicksand' 'Helvetica-Light' 'Meiryo' sans-serif";  // フラットデザイン用フォント
 
