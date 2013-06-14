@@ -13,19 +13,20 @@ var SCREEN_CENTER_Y = SCREEN_HEIGHT/2;  // スクリーン高さの半分
 var PIECE_NUM_X     = 5;                // ピースの列数
 var PIECE_NUM_Y     = 5;                // ピースの行数
 var PIECE_NUM       = PIECE_NUM_X*PIECE_NUM_Y;  // ピース数
-var PIECE_OFFSET_X  = 90;               // ピースオフセットX　
-var PIECE_OFFSET_Y  = 240;              // ピースオフセットY
-var PIECE_WIDTH     = 120;              // ピースの幅
-var PIECE_HEIGHT    = 120;              // ピースの高さ
+var PIECE_OFFSET_X  = 68;
+var PIECE_OFFSET_Y  = 240;
+var PIECE_WIDTH     = 135;
+var PIECE_HEIGHT    = 135;
+var BETWEEN         = 1;
 
-var FONT_FAMILY_FLAT= "'Helvetica-Light' 'Meiryo' sans-serif";  // フラットデザイン用フォント
+var FONT_FAMILY_FLAT= "'Quicksand' 'Helvetica-Light' 'Meiryo' sans-serif";  // フラットデザイン用フォント
 
 // アセット
 var ASSETS = {
-    "bgm": "sounds/bgm.mp3",
-    "pinponSE": "sounds/pinpon.mp3",
-    "booSE": "sounds/boo.mp3",
-    "clearSE": "sounds/clear.mp3",
+    "bgm": "./sounds/bgm.mp3",
+    "pinponSE": "./sounds/pinpon.mp3",
+    "booSE": "./sounds/boo.mp3",
+    "clearSE": "./sounds/clear.mp3",
 };
 
 /*
@@ -84,8 +85,8 @@ tm.define("GameScene", {
                 // ピースを生成してピースグループに追加
                 var piece = Piece(number).addChildTo(this.pieceGroup);
                 // 座標を設定
-                piece.x = j * 125 + PIECE_OFFSET_X;
-                piece.y = i * 125 + PIECE_OFFSET_Y;
+                piece.x = j * (PIECE_WIDTH  + BETWEEN) + PIECE_OFFSET_X;
+                piece.y = i * (PIECE_HEIGHT + BETWEEN) + PIECE_OFFSET_Y;
                 // タッチ時のイベントリスナーを登録
                 piece.onpointingstart = function() {
                     // 正解かどうかの判定
@@ -123,24 +124,26 @@ tm.define("GameScene", {
             .setFontSize(128);
 
         // タイトルボタン
+        var titleButtonWidth  = SCREEN_WIDTH/2;
         var titleBtn = tm.app.FlatButton({
-            width: 300,
+            width: titleButtonWidth,
             height: 100,
             text: "TITLE",
             bgColor: "#888",
         }).addChildTo(this);
-        titleBtn.position.set(180, 880);
+        titleBtn.position.set(titleButtonWidth/2, 903);
         titleBtn.onpointingend = function() {
             self.app.replaceScene(TitleScene());
         };
         // リスタートボタン
+        var restartButtonWidth  = SCREEN_WIDTH/2;
         var restartBtn = tm.app.FlatButton({
-            width: 300,
+            width: restartButtonWidth -1,
             height: 100,
             text: "RESTART",
             bgColor: "#888",
         }).addChildTo(this);
-        restartBtn.position.set(500, 880);
+        restartBtn.position.set(titleButtonWidth + restartButtonWidth/2 + 1, 903);
         restartBtn.onpointingend = function() {
             self.app.replaceScene(GameScene());
         };
